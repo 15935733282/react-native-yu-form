@@ -1,0 +1,26 @@
+{
+  "name": "react-native-yu-form",
+  "version": "0.0.3",
+  "description": "react-native的form组件",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "dependencies": {
+      "react-native-reanimated": "latest"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.75.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+   "keywords": [
+    "react-native",
+    "react-native-yu-form"
+  ],
+  "author": "hbyu",
+  "license": "MIT"
+}
