@@ -32,7 +32,7 @@ const FormItem: FC<FormItemType> = ({name, required, style, children}) => {
 
 
   const validate = () => {
-    if (required && !value) {
+    if (required && !value  && value !== 0) {
       validationResult(name, false); // 触发表单验证错误
       translateX.value = withTiming(10, {duration: 100},()=>{
         translateX.value = 0;
