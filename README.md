@@ -2,8 +2,15 @@
 react-native的form组件
 
 ## 安装
+
+### npm
 ```
 npm install react-native-yu-form --save
+```
+
+### yarn
+```
+yarn add react-native-yu-form
 ```
 
 ## 使用
