@@ -110,7 +110,7 @@ const FormItem: FC<FormItemType> = ({name, required, style, children}) => {
 
   return (
       <Animated.View style={[styles.container, animatedStyle, style]}>
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child: any) => {
           if (React.isValidElement(child)) {
             return handleChildChange(child); // 处理每个有效的 React 元素
           }
