@@ -1,6 +1,6 @@
 {
   "name": "react-native-yu-form",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "react-native的form组件",
   "main": "index.js",
   "types": "index.d.ts",
