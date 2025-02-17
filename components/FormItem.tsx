@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 import {StyleSheet} from 'react-native';
-import {FormContext} from './Form.tsx';
+import {FormContext} from './Form';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -17,22 +17,34 @@ import Animated, {
 import {StyleProp} from 'react-native/Libraries/StyleSheet/StyleSheet';
 import {ViewStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
 
-type FormItemType = {
+export type FormItemType = {
+  /**
+   * 表单项名称
+   */
   name: string;
+  /**
+   * 是否必填
+   */
   required?: boolean;
+  /**
+   * 表单项样式
+   */
   style?: StyleProp<ViewStyle> | undefined;
+  /**
+   * 表单项子元素
+   */
   children: ReactNode;
 };
 
 const FormItem: FC<FormItemType> = ({name, required, style, children}) => {
   const {formValue, onChangeValue, isValidationPending, validationResult,itemKeyReport} =
-    useContext(FormContext);
+      useContext(FormContext);
   const [value, setValue] = useState<any>();
   const translateX = useSharedValue(0);
 
 
   const validate = () => {
-    if (required && !value  && value !== 0) {
+    if (required && !value && value !== 0) {
       validationResult(name, false); // 触发表单验证错误
       translateX.value = withTiming(10, {duration: 100},()=>{
         translateX.value = 0;
@@ -69,7 +81,6 @@ const FormItem: FC<FormItemType> = ({name, required, style, children}) => {
       formValue: formValue,
       value: value,
       onChange: (e: any) => {
-        console.log('onChange', e);
         setValue(e);
         onChangeValue({[name]: e});
         if (originalOnChange) {
@@ -98,14 +109,14 @@ const FormItem: FC<FormItemType> = ({name, required, style, children}) => {
   });
 
   return (
-    <Animated.View style={[styles.container, animatedStyle, style]}>
-      {React.Children.map(children, child => {
-        if (React.isValidElement(child)) {
-          return handleChildChange(child); // 处理每个有效的 React 元素
-        }
-        return child;
-      })}
-    </Animated.View>
+      <Animated.View style={[styles.container, animatedStyle, style]}>
+        {React.Children.map(children, child => {
+          if (React.isValidElement(child)) {
+            return handleChildChange(child); // 处理每个有效的 React 元素
+          }
+          return child;
+        })}
+      </Animated.View>
   );
 };
 

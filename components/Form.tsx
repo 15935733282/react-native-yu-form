@@ -9,13 +9,30 @@ import {
   useState,
 } from 'react';
 
-type FormType = {
+export type FormType = {
+  /**
+   * 表单默认值
+   */
   value?: any;
+  /**
+   * 表单值变化回调函数
+   * @param value
+   */
   onChangeValueAll?: (value: any) => void;
+  /**
+   * 表单提交回调函数
+   * @param isValid
+   */
   onConfirm?: (isValid: boolean) => void;
+  /**
+   * 表单子元素
+   */
   children: ReactNode;
 };
 
+/**
+ * 表单上下文
+ */
 export const FormContext = createContext<{
   formValue: any;
   onChangeValue: (value: any) => void;
@@ -31,11 +48,11 @@ export const FormContext = createContext<{
 });
 
 const Form: ForwardRefRenderFunction<any, FormType> = (
-  {value, onChangeValueAll, onConfirm, children},
-  ref,
+    {value, onChangeValueAll, onConfirm, children},
+    ref,
 ) => {
   const [isValidationPending, setIsValidationPending] =
-    useState<boolean>(false);
+      useState<boolean>(false);
   let isValidationStatus = useRef<{
     [key: string]: boolean;
   }>({});
@@ -47,7 +64,7 @@ const Form: ForwardRefRenderFunction<any, FormType> = (
   useEffect(() => {
     if (
         value &&
-      Object.keys(value).length !== 0 &&
+        Object.keys(value).length !== 0 &&
         value.constructor === Object
     ) {
       formValueTemp.current = {...formValueTemp.current, ...value};
@@ -72,11 +89,10 @@ const Form: ForwardRefRenderFunction<any, FormType> = (
         [key]: status,
       };
       isValidationStatus.current = newValidationStatus;
-
       validationResultCount.current += 1;
       if (
-        validationResultCount.current ===
-        Object.keys(itemNames.current).length
+          validationResultCount.current ===
+          Object.keys(itemNames.current).length
       ) {
         setIsValidationPending(false);
         validationResultCount.current = 0;
@@ -94,16 +110,16 @@ const Form: ForwardRefRenderFunction<any, FormType> = (
   }));
 
   return (
-    <FormContext.Provider
-      value={{
-        formValue,
-        onChangeValue,
-        isValidationPending,
-        validationResult,
-        itemKeyReport,
-      }}>
-      {children}
-    </FormContext.Provider>
+      <FormContext.Provider
+          value={{
+            formValue,
+            onChangeValue,
+            isValidationPending,
+            validationResult,
+            itemKeyReport,
+          }}>
+        {children}
+      </FormContext.Provider>
   );
 };
 
